@@ -1,0 +1,145 @@
+<!--Created by Rui Zhang-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            width: 800px; /* Adjusted max-width for a larger box */
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h2 {
+            margin: 0;
+            padding-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #loginError {
+            color: red;
+            margin: 10px 0;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 5px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <div>
+            <label for="email">Email:</label>
+            <input type="text" id="email" placeholder="Enter your email">
+            <span class="error-message" id="emailError"></span>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" placeholder="Enter your password">
+            <span class="error-message" id="passwordError"></span>
+        </div>
+        <button onclick="login()">Login</button>
+        <p id="loginError"></p>
+        <a href="signup">Signup</a> <!-- Link to the signup page -->
+    </div>
+
+    <script>
+        function login() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Reset previous error messages
+            document.getElementById('emailError').innerText = '';
+            document.getElementById('passwordError').innerText = '';
+            document.getElementById('loginError').innerText = '';
+
+            // Check if email and password fields are empty
+            if (email.trim() === '') {
+                document.getElementById('emailError').innerText = 'Email is required';
+                return; // Stop the login process
+            }
+
+            if (password.trim() === '') {
+                document.getElementById('passwordError').innerText = 'Password is required';
+                return; // Stop the login process
+            }
+
+            // Prepare the data for the POST request
+            const userData = { email, password };
+
+            // Send a POST request to the server for login
+            fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'Login successful') {
+                    // Save the JWT token to local storage or a secure cookie
+                    const token = data.token;
+                    localStorage.setItem('token', token);
+
+                    // Redirect to a different page (e.g., user dashboard)
+                    window.location.href = '/api/dashboard';
+                } else {
+                    document.getElementById('loginError').innerText = data.message;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('loginError').innerText = 'An error occurred during login.';
+            });
+        }
+    </script>
+</body>
+
+</html>
