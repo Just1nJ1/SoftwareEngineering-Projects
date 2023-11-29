@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer reviews</title>
+</head>
+<body>
+    <h1 id="productName"></h1>
+    <h2 id="strats"></h2>
+    <ul id="reviewsList">
+        <!-- Data for customer reviews will be injected here -->
+    </ul>
+
+    <script>
+        // Use JavaScript to populate the lists with data
+        const productName = document.getElementById('productName');
+        const strats = document.getElementById('strats');
+        const reviewsList = document.getElementById('reviewsList');
+
+        // These placeholders will be replaced by the server with actual data
+        const reviewData = <!-- reviews -->;
+        let sum = 0 ;
+        productName.innerHTML = reviewData[0].ProductName;
+        reviewData.forEach(element => {
+            sum += element.Rating;
+            reviewsList.innerHTML += `
+          <li><p>${element.Rating}</p></li>
+          <p>${element.Content}</p>
+          `;
+        });
+         const avg = sum/reviewData.length;
+         strats.innerHTML = avg.toFixed(1);
+    </script>
+</body>
+</html>

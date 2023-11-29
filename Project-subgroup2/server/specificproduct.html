@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detailpage</title>
+</head>
+<body>
+  <h1>Product Detail </h1>
+  <div id = productDetailList>
+      <!-- Data for product detail will be injected here -->
+  </div>
+  <h2>Reviews</h2>
+  <ul id = "productReviewList">
+      <!-- Data for product review will be injected here -->
+  </ul>
+  <div id="seeMoreReviews">
+    <!-- "See more reviews" link will be injected here -->
+  </div>
+  <script>
+        // Use JavaScript to populate the lists with data
+          const productDetailList = document.getElementById("productDetailList");
+          const productReviewList = document.getElementById("productReviewList");
+          const seeMoreReviews = document.getElementById("seeMoreReviews");
+        // These placeholders will be replaced by the server with actual data
+        const productDetail = <!-- productsDetail -->;  
+        const productReview = <!-- productReviews -->;
+        
+        productDetailList.innerHTML = `
+          <h2>${productDetail[0].Name}</h2>
+          <h3>${productDetail[0].Price}</h3>
+          <p>${productDetail[0].Description}</p>
+          `;
+          
+        productReview.forEach(element => {
+        const ratingElement = document.createElement('li');
+        ratingElement.innerHTML = `<p>${element.Rating}</p>`;
+        productReviewList.appendChild(ratingElement);
+
+        const contentElement = document.createElement('div');
+        contentElement.innerHTML = `<p>${element.Content}</p>`;
+        productReviewList.appendChild(contentElement);
+      });
+      // Create "See more reviews" link
+      const seeMoreReviewsLink = document.createElement('a');
+      seeMoreReviewsLink.href = `/api/reviews/${productDetail[0].ProductID}`;
+      seeMoreReviewsLink.textContent = "See more reviews";
+      seeMoreReviews.appendChild(seeMoreReviewsLink);
+  </script>
+</body>
+</html>
