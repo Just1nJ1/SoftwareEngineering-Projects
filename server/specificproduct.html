@@ -3,37 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
   <title>Detailpage</title>
 </head>
-<style>
-  body {
-      font-family: 'Arial', sans-serif;
-      line-height: 1.6;
-      padding: 20px;
-      background-color: #f4f4f4;
-  }
-  
-  h1 {
-      color: #333;
-      margin-bottom: 1rem;
-  }
-  
-  ul {
-      list-style-type: none;
-      padding-left: 0;
-      margin-bottom: 2rem;
-  }
-  
-  li {
-      background-color: #fff;
-      margin-bottom: 0.5rem;
-      padding: 10px;
-      border: 1px solid #ddd;
-  }
-  
-  /* Add more styles as needed */
-</style>
 <body>
   <h1>Product Detail </h1>
   <div id = productDetailList>
@@ -72,7 +43,7 @@
       });
       // Create "See more reviews" link
       const seeMoreReviewsLink = document.createElement('a');
-      seeMoreReviewsLink.href = `/reviews/${productDetail[0].ProductID}`;
+      seeMoreReviewsLink.href = `/api/reviews/${productDetail[0].ProductID}`;
       seeMoreReviewsLink.textContent = "See more reviews";
       seeMoreReviews.appendChild(seeMoreReviewsLink);
   </script>
