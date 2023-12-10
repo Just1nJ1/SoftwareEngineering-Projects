@@ -11,27 +11,27 @@ document.addEventListener('DOMContentLoaded', function() {
             'Content-Type': 'application/json',
         },
     })
-    .then(response => response.json())
-    .then(cartItems => {
-        const cartTableBody = document.getElementById('cartItems');
-        cartTableBody.innerHTML = ''; // Clear existing items
+        .then(response => response.json())
+        .then(cartItems => {
+            const cartTableBody = document.getElementById('cartItems');
+            cartTableBody.innerHTML = ''; // Clear existing items
 
-        cartItems.forEach(item => {
-            cartIds.push(item.CartID);
-            productIDs.push(item.ProductID);
-            NUMBERs.push(item.NUMBER);
+            cartItems.forEach(item => {
+                cartIds.push(item.CartID);
+                productIDs.push(item.ProductID);
+                NUMBERs.push(item.NUMBER);
 
-            const row = `<tr>
+                const row = `<tr>
                            <td>${item.Name}</td>
                            <td>$${item.Price}</td>
                            <td>${item.Description}</td>
                          </tr>`;
-            cartTableBody.innerHTML += row;
+                cartTableBody.innerHTML += row;
+            });
+        })
+        .catch((error) => {
+            console.error('Error:', error);
         });
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
 
     document.getElementById('checkout-button').addEventListener('click', () => {
         fetch('/api/store-cart-ids', {

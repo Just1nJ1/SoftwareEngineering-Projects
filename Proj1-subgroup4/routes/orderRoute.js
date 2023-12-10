@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
     `;
 
     db.query(sql, (err, results) => {
-        console.log("Database Query Results:", results); 
+        console.log("Database Query Results:", results);
         if (err) throw err;
         res.json(results.map(order => ({
             ...order,

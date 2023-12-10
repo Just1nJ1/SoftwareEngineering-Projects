@@ -22,10 +22,12 @@ const db = mysql.createConnection(dbConfig);
 const loginRoute = require('./routes/loginRoute');
 const cartRoute = require('./routes/cartRoute');
 const paymentRoute = require('./routes/paymentRoute');
+const orderRoute = require('./routes/orderRoute');
 const storeCartIdsRoute = require('./routes/store2session');
 app.use('/api/login', loginRoute);
 app.use('/api/cart', cartRoute);
 app.use('/api/payment', paymentRoute);
+app.use('/api/order', orderRoute);
 app.use(storeCartIdsRoute);
 
 db.connect((err) => {

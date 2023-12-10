@@ -17,9 +17,6 @@ router.get('/', (req, res) => {
             console.error('SQL Error:', err);
             res.json({ success: false, error: err.message });
         } else {
-            // Print the results for debugging
-            console.log('Queried Results:', results);
-
             res.json(results);
         }
     });
