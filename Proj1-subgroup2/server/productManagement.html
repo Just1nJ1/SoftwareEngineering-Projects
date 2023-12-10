@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Add your head content here -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Management </title>
 </head>
 <body>
     <h1>Product Management</h1>
@@ -10,7 +12,7 @@
       <input type="text" id="name" name="name" required minlength="4" maxlength="255"><br><br>
   
       <label for="price">Price:</label>
-      <input type="number" id="price" name="price" required min = 0><br><br>
+      <input type="number" id="price" name="price" step = "0.01" required min = 0><br><br>
   
       <label for="description">Description:</label>
       <textarea id="description" name="description" required minlength="4" maxlength="255"></textarea><br><br>
@@ -24,41 +26,52 @@
 
     <div id="message"></div>
 
+        <!-- Display product names here -->
+        <h2>Product Names for SupplierID = 1</h2>
+        <ul id="productList">
+            <!-- Product names will be injected here -->
+        </ul>
+
     <script>
-        document.getElementById('productForm').addEventListener('submit', function (event) {
-    event.preventDefault();
+        const productList = document.getElementById('productList');
+        // These placeholders will be replaced by the server with actual data
+        const productSupplierData = <!-- productSupplierList -->;
 
-    const name = document.getElementById('name').value;
-    const price = document.getElementById('price').value;
-    const description = document.getElementById('description').value;
-    const stock = document.getElementById('stock').value;
+        productSupplierData.forEach(product => {
+            productList.innerHTML += `<li><a href="/api/updateProduct/${product.ProductID}">${product.Name}</a></li>`;
+        });
+    document.getElementById('productForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const name = document.getElementById('name').value;
+        const price = document.getElementById('price').value;
+        const description = document.getElementById('description').value;
+        const stock = document.getElementById('stock').value;
 
-    const productData = {
-        Name: name,
-        Price: price,
-        Description: description,
-        StockInventory: stock
-    };
+        const productData = {
+            Name: name,
+            Price: price,
+            Description: description,
+            StockInventory: stock
+        };
 
-    fetch('/api/addProduct', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(productData)
-    })
-    .then(response => response.json())
-    .then(data => {
-        const messageElement = document.getElementById('message');
-        messageElement.innerHTML = data.message;
-    })
-    .catch(error => {
-        console.error('Error adding product:', error);
-        const messageElement = document.getElementById('message');
-        messageElement.innerHTML = 'Error adding product.';
-    });
+        fetch('/api/addProduct', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(productData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            const messageElement = document.getElementById('message');
+            messageElement.innerHTML = data.message;
+        })
+        .catch(error => {
+            console.error('Error adding product:', error);
+            const messageElement = document.getElementById('message');
+            messageElement.innerHTML = 'Error adding product.';
+        });
 });
-
     </script>
 </body>
 </html>

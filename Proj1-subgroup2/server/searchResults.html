@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category </title>
+</head>
+<body>
+    <h4>search results</h4>
+    <ul id="searchProductList">
+        <!-- Data for products in the category will be injected here -->
+    </ul>
+    <script>
+
+        // Include the common navbar
+        const navbarContainer = document.createElement('div');
+        navbarContainer.id = 'navbarContainer';
+        document.body.insertBefore(navbarContainer, document.body.firstChild);
+
+        fetch('/navbar.html')
+            .then(response => response.text())
+            .then(navbarHtml => {
+               navbarContainer.innerHTML = navbarHtml;
+        // To populate the lists with data
+        const searchProductList = document.getElementById('searchProductList');
+
+        // These placeholders will be replaced by the server with actual data
+        const categoryProductData = <!-- searchProducts -->;  
+
+        categoryProductData.forEach(product => {
+            searchProductList.innerHTML += `<li><a href="/api/products/${product.ProductID}">${product.Name}</a></li>`;
+        });
+            })
+            .catch(error => console.error('Error loading navbar.html:', error));
+    </script>
+</body>
+</html>

@@ -17,7 +17,17 @@
     </ul>
 
     <script>
-        // Use JavaScript to populate the lists with data
+
+        // Include the common navbar
+        const navbarContainer = document.createElement('div');
+        navbarContainer.id = 'navbarContainer';
+        document.body.insertBefore(navbarContainer, document.body.firstChild);
+
+        fetch('/navbar.html')
+            .then(response => response.text())
+            .then(navbarHtml => {
+                navbarContainer.innerHTML = navbarHtml;
+        // To populate the lists with data
         const bestSellingList = document.getElementById('bestSellingList');
         const lastProductList = document.getElementById('lastProductList');
 
@@ -32,6 +42,8 @@
         lastProductData.forEach(product => {
             lastProductList.innerHTML += `<li><a href="/api/products/${product.ProductID}">${product.Name}</a></li>`;
         });
+            })
+            .catch(error => console.error('Error loading navbar.html:', error));
     </script>
 </body>
 </html>

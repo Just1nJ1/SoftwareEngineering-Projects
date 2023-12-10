@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detailpage</title>
+</head>
+<body>
+  <h1>Product Detail </h1>
+  <div id = productDetailList>
+      <!-- Data for product detail will be injected here -->
+  </div>
+  <button id="modifyButton">Modify</button>
+  <button id="updateButton">Update</button>
+  <button id="deleteButton">Delete</button>
+  <div id="message"></div>
+  <script>
+    // To populate the lists with data
+    const productDetailList = document.getElementById("productDetailList");
+    // These placeholders will be replaced by the server with actual data
+    let productDetail = <!-- productData -->; 
+    function renderProductDetails() {
+      productDetailList.innerHTML = `
+        <h2>${productDetail[0].Name}</h2>
+        <h3>${productDetail[0].Price}</h3>
+        <p>${productDetail[0].Description}</p>
+        <p>Stock Inventory: ${productDetail[0].StockInventory}</p>
+      `;
+    }
+
+    renderProductDetails();
+
+    const modifyButton = document.getElementById("modifyButton");
+    const updateButton = document.getElementById("updateButton");
+    const deleteButton = document.getElementById("deleteButton");
+
+    modifyButton.addEventListener("click", () => {
+      // Enable editing by making the details editable
+      productDetailList.innerHTML = `
+        <input type="text" id="productName" value="${productDetail[0].Name}">
+        <input type="text" id="productPrice" value="${productDetail[0].Price}">
+        <textarea id="productDescription">${productDetail[0].Description}</textarea>
+        <p>Stock Inventory: ${productDetail[0].StockInventory}</p>
+      `;
+    });
+
+    updateButton.addEventListener("click", () => {
+      // Capture the edited values
+      const updatedProduct = {
+        Name: document.getElementById("productName").value,
+        Price: document.getElementById("productPrice").value,
+        Description: document.getElementById("productDescription").value,
+        StockInventory: productDetail[0].StockInventory,
+      };
+      console.log("Sending PUT request with data:", JSON.stringify(updatedProduct));
+      fetch(`/api/updateProduct/${productDetail[0].ProductID}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedProduct)
+        })
+        .then(response => response.json())
+        .then(data => {
+            const messageElement = document.getElementById('message');
+            messageElement.innerHTML = data.message;
+            renderProductDetails();
+        })
+        .catch(error => {
+            console.error('Error updating product:', error);
+            const messageElement = document.getElementById('message');
+            messageElement.innerHTML = 'Error modifying product!';
+        });
+      // // For demonstration purposes, update the productDetail variable
+      // productDetail = [updatedProduct];
+
+      // // Render the updated product details
+      // renderProductDetails();
+    });
+
+    deleteButton.addEventListener("click", () => {
+      fetch(`/api/updateProduct/${productDetail[0].ProductID}`, {
+        method: 'DELETE',
+      })
+      .then(response => response.json())
+      .then(data => {
+        const messageElement = document.getElementById('message');
+        messageElement.innerHTML = data.message;
+      })
+      .catch(error => {
+        console.error('Error deleting product:', error);
+        const messageElement = document.getElementById('message');
+        messageElement.innerHTML = 'Error deleting product!';
+      });
+    });
+  </script>
+</body>
+</html>

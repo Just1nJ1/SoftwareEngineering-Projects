@@ -18,34 +18,46 @@
     <!-- "See more reviews" link will be injected here -->
   </div>
   <script>
-        // Use JavaScript to populate the lists with data
-          const productDetailList = document.getElementById("productDetailList");
-          const productReviewList = document.getElementById("productReviewList");
-          const seeMoreReviews = document.getElementById("seeMoreReviews");
-        // These placeholders will be replaced by the server with actual data
-        const productDetail = <!-- productsDetail -->;  
-        const productReview = <!-- productReviews -->;
-        
-        productDetailList.innerHTML = `
-          <h2>${productDetail[0].Name}</h2>
-          <h3>${productDetail[0].Price}</h3>
-          <p>${productDetail[0].Description}</p>
-          `;
-          
-        productReview.forEach(element => {
-        const ratingElement = document.createElement('li');
-        ratingElement.innerHTML = `<p>${element.Rating}</p>`;
-        productReviewList.appendChild(ratingElement);
 
-        const contentElement = document.createElement('div');
-        contentElement.innerHTML = `<p>${element.Content}</p>`;
-        productReviewList.appendChild(contentElement);
-      });
-      // Create "See more reviews" link
-      const seeMoreReviewsLink = document.createElement('a');
-      seeMoreReviewsLink.href = `/api/reviews/${productDetail[0].ProductID}`;
-      seeMoreReviewsLink.textContent = "See more reviews";
-      seeMoreReviews.appendChild(seeMoreReviewsLink);
+    // Include the common navbar
+    const navbarContainer = document.createElement('div');
+    navbarContainer.id = 'navbarContainer';
+    document.body.insertBefore(navbarContainer, document.body.firstChild);
+
+    fetch('/navbar.html')
+        .then(response => response.text())
+        .then(navbarHtml => {
+            navbarContainer.innerHTML = navbarHtml;
+    // To populate the lists with data
+    const productDetailList = document.getElementById("productDetailList");
+    const productReviewList = document.getElementById("productReviewList");
+    const seeMoreReviews = document.getElementById("seeMoreReviews");
+    // These placeholders will be replaced by the server with actual data
+    const productDetail = <!-- productsDetail -->;  
+    const productReview = <!-- productReviews -->;
+    
+    productDetailList.innerHTML = `
+      <h2>${productDetail[0].Name}</h2>
+      <h3>${productDetail[0].Price}</h3>
+      <p>${productDetail[0].Description}</p>
+      `;
+      
+    productReview.forEach(element => {
+    const ratingElement = document.createElement('li');
+    ratingElement.innerHTML = `<p>${element.Rating}</p>`;
+    productReviewList.appendChild(ratingElement);
+
+    const contentElement = document.createElement('div');
+    contentElement.innerHTML = `<p>${element.Content}</p>`;
+    productReviewList.appendChild(contentElement);
+  });
+    // Create "See more reviews" link
+    const seeMoreReviewsLink = document.createElement('a');
+    seeMoreReviewsLink.href = `/api/reviews/${productDetail[0].ProductID}`;
+    seeMoreReviewsLink.textContent = "See more reviews";
+    seeMoreReviews.appendChild(seeMoreReviewsLink);
+          })
+          .catch(error => console.error('Error loading navbar.html:', error));
   </script>
 </body>
 </html>

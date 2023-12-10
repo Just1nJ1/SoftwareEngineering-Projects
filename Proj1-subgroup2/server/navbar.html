@@ -1,0 +1,46 @@
+<!-- navbar.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/api">Home</a></li>
+            <li><a href="/api/products/category/1">Category 1</a></li>
+            <li><a href="/api/products/category/2">Category 2</a></li>
+            <li><a href="/api/products/category/3">Category 3</a></li>
+            <li><a href="/administrator/productManagement">productManagement</a></li>            
+            <!-- <li><a href="/about">About</a></li> -->
+        </ul>
+
+        <!-- <form action="/search" method="get">
+            <input type="text" name="query" id="searchQuery" placeholder="Search..." required>
+            <button type="submit">Search</button>
+        </form> -->
+        <form action="/search" method="get">
+            <input type="text" name="query" id="searchQuery" placeholder="Search...">
+            <label for="priceFilter">Price Filter:</label>
+            <select name="priceFilter" id="priceFilter">
+                <option value="">All</option>
+                <option value="1-5">1-5</option>
+                <option value="5-10">5-10</option>
+                <option value="10-20">10-20</option>
+                <option value="over20">Over 20</option>
+            </select>
+            <label for="ratingFilter">Rating Filter:</label>
+            <select name="ratingFilter" id="ratingFilter">
+                <option value="">All</option>
+                <option value=">4">>4</option>
+                <option value=">3">>3</option>
+                <option value=">2">>2</option>
+                <option value=">1">>1</option>
+            </select>
+            <button type="submit">Search</button>
+        </form>
+    </nav>
+</body>
+</html>

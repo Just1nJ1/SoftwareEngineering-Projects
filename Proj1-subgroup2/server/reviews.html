@@ -13,6 +13,15 @@
     </ul>
 
     <script>
+        // Include the common navbar using JavaScript
+        const navbarContainer = document.createElement('div');
+        navbarContainer.id = 'navbarContainer';
+        document.body.insertBefore(navbarContainer, document.body.firstChild);
+
+        fetch('/navbar.html')
+            .then(response => response.text())
+            .then(navbarHtml => {
+                navbarContainer.innerHTML = navbarHtml;
         // Use JavaScript to populate the lists with data
         const productName = document.getElementById('productName');
         const strats = document.getElementById('strats');
@@ -31,6 +40,8 @@
         });
          const avg = sum/reviewData.length;
          strats.innerHTML = avg.toFixed(1);
+            })
+            .catch(error => console.error('Error loading navbar.html:', error));
     </script>
 </body>
 </html>
