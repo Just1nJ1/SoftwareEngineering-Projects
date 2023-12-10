@@ -28,10 +28,11 @@ router.post('/', (req, res) => {
             const cartIds = req.session.cartIds.join(','); // Assuming cartIds is an array
             const productIDs = req.session.productIDs.join(','); // Assuming cartIds is an array
             const NUMBERs = req.session.NUMBERs.join(','); // Assuming cartIds is an array
+            const total = req.session.totalAmount;
 
             // Insert into Orders table
-            const orderSql = 'INSERT INTO Orders (CustomerID, PaymentInfoID, ProductIDs, NUMBERs) VALUES (?, ?, ?, ?)';
-            db.query(orderSql, [customerId, paymentId, productIDs, NUMBERs], (err) => {
+            const orderSql = 'INSERT INTO Orders (CustomerID, PaymentInfoID, ProductIDs, NUMBERs, TotalPrice) VALUES (?, ?, ?, ?, ?)';
+            db.query(orderSql, [customerId, paymentId, productIDs, NUMBERs, total], (err) => {
                 if (err) {
                     res.json({ success: false });
                     console.error(err);

@@ -6,6 +6,7 @@ router.post('/api/store-cart-ids', (req, res) => {
     req.session.cartIds = cartIds;
     req.session.productIDs = productIDs;
     req.session.NUMBERs = NUMBERs;
+    req.session.totalAmount = req.body.totalAmount; // Store total amount in session
     res.json({ success: true });
 });
 

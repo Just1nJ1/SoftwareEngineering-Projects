@@ -27,7 +27,11 @@ function populateOrders(orders) {
       `;
     });
 
-    // Rest of the code remains the same...
+    document.querySelectorAll('.cancelButton').forEach(button => {
+        button.addEventListener('click', function() {
+            cancelOrder(this.getAttribute('data-orderid'));
+        });
+    });
 }
 
 function formatProductsAndNumbers(productNames, numbers) {

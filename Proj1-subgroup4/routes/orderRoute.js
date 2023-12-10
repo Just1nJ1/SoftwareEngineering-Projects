@@ -8,22 +8,23 @@ const db = mysql.createConnection(dbConfig);
 
 router.get('/', (req, res) => {
     const sql = `
-        SELECT o.OrderID, o.CustomerID, o.ProductIDs, o.NUMBERs, 
-               GROUP_CONCAT(p.Name ORDER BY FIND_IN_SET(p.ProductID, o.ProductIDs)) AS ProductNames,
-               SUM(p.Price * FIND_IN_SET(p.ProductID, o.ProductIDs)) AS Total 
+        SELECT o.OrderID, o.CustomerID, o.ProductIDs, o.NUMBERs, o.TotalPrice as Total,
+               GROUP_CONCAT(p.Name ORDER BY FIND_IN_SET(p.ProductID, o.ProductIDs)) AS ProductNames
         FROM Orders o
         JOIN Product p ON FIND_IN_SET(p.ProductID, o.ProductIDs)
         GROUP BY o.OrderID
     `;
 
-
     db.query(sql, (err, results) => {
-        console.log("Database Query Results:", results);
-        if (err) throw err;
-        res.json(results.map(order => ({
-            ...order,
-            Total: parseFloat(order.Total).toFixed(2) // Formatting total as a decimal
-        })));
+        if (err) {
+            console.error('Error:', err);
+            res.json({ success: false, error: err.message });
+        } else {
+            res.json(results.map(order => ({
+                ...order,
+                Total: parseFloat(order.Total).toFixed(2) // Use TotalPrice from the database
+            })));
+        }
     });
 });
 
