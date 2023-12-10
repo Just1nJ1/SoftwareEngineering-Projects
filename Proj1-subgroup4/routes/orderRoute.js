@@ -9,11 +9,13 @@ const db = mysql.createConnection(dbConfig);
 router.get('/', (req, res) => {
     const sql = `
         SELECT o.OrderID, o.CustomerID, o.ProductIDs, o.NUMBERs, 
+               GROUP_CONCAT(p.Name ORDER BY FIND_IN_SET(p.ProductID, o.ProductIDs)) AS ProductNames,
                SUM(p.Price * FIND_IN_SET(p.ProductID, o.ProductIDs)) AS Total 
         FROM Orders o
         JOIN Product p ON FIND_IN_SET(p.ProductID, o.ProductIDs)
         GROUP BY o.OrderID
     `;
+
 
     db.query(sql, (err, results) => {
         console.log("Database Query Results:", results);
