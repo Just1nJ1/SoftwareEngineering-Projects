@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <title>Shopping Cart</title>
+    <link rel="stylesheet" href="css/cart-styles.css">
 </head>
 <body>
 <h2>Your Cart</h2>
@@ -17,16 +18,23 @@
     <!-- Cart items will be added here dynamically -->
     </tbody>
 </table>
-<p id="subtotal">Subtotal: $0.00</p>
-<p id="discountedSubtotal" style="display:none;">Discounted Subtotal: $0.00</p>
-<label for="couponCode">Coupon Code:</label>
-<input type="text" id="couponCode" placeholder="Enter coupon code">
-<button id="applyCouponButton">Apply Coupon</button>
+<div class="subtotal-section">
+    <p id="subtotal">Subtotal: $0.00</p>
+    <p id="discountedSubtotal" style="display:none;">Discounted Subtotal: $0.00</p>
+</div>
 
-<label for="stateCode">State:</label>
-<input type="text" id="stateCode" placeholder="Enter state code (e.g., CA)">
-<button id="calculateTaxButton">Calculate Tax</button>
-<p id="taxAmount">Tax: $0.00</p>
+<div class="coupon-section">
+    <label for="couponCode">Coupon Code:</label>
+    <input type="text" id="couponCode" placeholder="Enter coupon code">
+    <button id="applyCouponButton">Apply Coupon</button>
+</div>
+
+<div class="tax-section">
+    <label for="stateCode">State:</label>
+    <input type="text" id="stateCode" placeholder="Enter state code (e.g., CA)">
+    <button id="calculateTaxButton">Calculate Tax</button>
+    <p id="taxAmount">Tax: $0.00</p>
+</div>
 
 <script src="/js/cart.js"></script>
 <button id="checkout-button">Proceed to Checkout</button>
