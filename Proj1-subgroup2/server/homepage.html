@@ -4,37 +4,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage</title>
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        /* Navbar Styling */
+        #navbarContainer {
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* Heading Styling */
+        h1 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* List Styling */
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            #navbarContainer {
+                padding: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Navbar Container -->
+    <div id="navbarContainer"></div>
+
+    <!-- Best-Selling Products Section -->
     <h1>Top 10 Best-Selling Products</h1>
     <ul id="bestSellingList">
         <!-- Data for best-selling products will be injected here -->
     </ul>
 
+    <!-- Latest Products Section -->
     <h1>5 Latest Products Added</h1>
     <ul id="lastProductList">
         <!-- Data for latest products will be injected here -->
     </ul>
 
     <script>
-
         // Include the common navbar
-        const navbarContainer = document.createElement('div');
-        navbarContainer.id = 'navbarContainer';
-        document.body.insertBefore(navbarContainer, document.body.firstChild);
-
         fetch('/navbar.html')
             .then(response => response.text())
             .then(navbarHtml => {
-                navbarContainer.innerHTML = navbarHtml;
+                document.getElementById('navbarContainer').innerHTML = navbarHtml;
+            })
+            .catch(error => console.error('Error loading navbar.html:', error));
+
         // To populate the lists with data
         const bestSellingList = document.getElementById('bestSellingList');
         const lastProductList = document.getElementById('lastProductList');
 
-        // These placeholders will be replaced by the server with actual data
+        // Placeholder: This will be replaced by the server with actual data
         const bestSellingData = <!-- bestSellingProducts -->;
         const lastProductData = <!-- lastProductResults -->;
 
+        // Uncomment and modify the below code as per the actual data structure
         bestSellingData.forEach(product => {
             bestSellingList.innerHTML += `<li><a href="/api/products/${product.ProductID}">${product.Name}</a></li>`;
         });
@@ -42,8 +103,6 @@
         lastProductData.forEach(product => {
             lastProductList.innerHTML += `<li><a href="/api/products/${product.ProductID}">${product.Name}</a></li>`;
         });
-            })
-            .catch(error => console.error('Error loading navbar.html:', error));
     </script>
 </body>
 </html>

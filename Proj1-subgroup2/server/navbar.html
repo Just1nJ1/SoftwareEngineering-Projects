@@ -5,6 +5,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navbar</title>
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        /* Navbar Styling */
+        nav {
+            background-color: #007bff;
+            padding: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: rgb(0, 0, 0);
+            font-weight: bold;
+        }
+
+        /* Highlighting the links on hover for better user interaction */
+        nav a:hover {
+            color: #ffdb4d;
+        }
+
+        /* Form Styling */
+        form {
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        input[type="text"], select {
+            padding: 5px;
+            margin-right: 10px;
+        }
+
+        button {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ccc;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav li {
+                display: block;
+                margin: 10px 0;
+            }
+
+            form {
+                text-align: center;
+                display: block;
+                margin-top: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
     <nav>
